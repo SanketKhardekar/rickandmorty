@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-const defaultUrl="https://rickandmortyapi.com/api/character";
+const defaultUrl="https://rickandmortyapi.com/api/character/";
 const initialState={
     isLoading:false,
     characters:[],
     isError:false,
 }
 
-export const getCharacters= createAsyncThunk("character/getCharacters",async()=>{
+export const getCharacters= createAsyncThunk("character/getCharacters",async(filter="")=>{
     try {
-         const response= await fetch(defaultUrl);
+         const response= await fetch(defaultUrl+filter);
          if(!response.ok)
          {
              throw Error("Something Went Wrong")
