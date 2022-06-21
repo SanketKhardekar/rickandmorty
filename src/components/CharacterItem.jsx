@@ -33,7 +33,7 @@ const CharacterItem = (props) => {
       <CardHeader
         sx={{ textTransform:"capitalize" }}
         title={props.characterData.name}
-        subheader={location}
+        subheader={"From "+location}
       />
       <CardMedia  
         component="img"
@@ -50,7 +50,7 @@ const CharacterItem = (props) => {
           Location: {props.characterData.location.name}.
           </Typography>
       </CardContent>
-      <CardActions disableSpacing sx={{flexDirection:"row-reverse"}}>
+      <CardActions disableSpacing sx={{flexDirection:"row", justifyContent:"space-around"}}>
         <Favorite fontSize="large" sx={{color: fav ? "red" : "grey"}} onClick={onFavClickHandler}/>      
       </CardActions>
     </Card>

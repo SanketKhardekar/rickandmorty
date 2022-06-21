@@ -12,7 +12,6 @@ const favoriteCharacterSlice=createSlice({
             state.favorites.unshift(action.payload)
         },
         removeFav:(state,action)=>{
-            console.log(action.payload);
             state.favorites=state.favorites.filter(item => item.id !== action.payload)
         }
     }
