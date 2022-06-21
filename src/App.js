@@ -1,13 +1,12 @@
-import { Badge, Box, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import ScrollToTop from "react-scroll-to-top";
 import "./App.css";
 import TabPanel from "./components/TabPanel";
 import CharacterScreen from "./screens/CharacterScreen";
 import FavoritesScreen from "./screens/FavroitesScreen";
 function App() {
   const [tabValue, setTabValue] = useState(0);
-  const favLength = useSelector((state) => state.favroite.favorites).length;
   return (
     <div className="App">
       <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}>
@@ -25,6 +24,7 @@ function App() {
         </Tabs>
       </Box>
       <header className="App-header">
+        <ScrollToTop smooth color="green"/>
         <TabPanel value={tabValue} index={0}>
           <CharacterScreen />
         </TabPanel>
