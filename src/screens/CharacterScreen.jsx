@@ -1,12 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Grid, CircularProgress } from "@mui/material";
 import CharacterList from "../components/CharacterList";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters } from "../features/character/characterSlice";
-import FiltersComponent from "../components/Filters";
 const CharacterScreen = (props) => {
   const dispatch = useDispatch();
-  const [filterText, setFilterText] = useState("");
+  const { filterText } =props;
   useEffect(() => {
     if (filterText.trim().length > 0) {
       dispatch(getCharacters(filterText));
@@ -14,13 +13,9 @@ const CharacterScreen = (props) => {
       dispatch(getCharacters());
     }
   }, [dispatch, filterText]);
-  const { characters, isLoading } = useSelector((state) => state.character);
-  const onFilterChangeHandler = (text) => {
-    setFilterText(text);
-  };
+  const { characters, isLoading} = useSelector((state) => state.character);
   return (
     <Fragment>
-      <FiltersComponent onFilter={onFilterChangeHandler} />
       {isLoading ? (
         <Grid container spacing={5} justifyContent="center" alignItems="center">
           <CircularProgress color="secondary" />

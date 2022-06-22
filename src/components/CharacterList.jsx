@@ -7,15 +7,15 @@ const  CharacterList=(props)=>{
     {
         return(
             <Fragment>
-                <Grid container spacing={5} justifyContent="center" alignItems="center">
-                    <Typography sx={{color:"whitesmoke"}} align="center" component="h1"> Data Not Found!</Typography> 
+                <Grid container spacing={5} sx={{marginTop:"30px"}} justifyContent="center" alignItems="center">
+                    <Typography sx={{color:"whitesmoke"}} align="center" variant="h3" component="div"> Characters Not Found!</Typography> 
                 </Grid>
             </Fragment>
         )
     }
     return(
         <Fragment>
-            <Grid container spacing={3} justifyContent="center" alignItems="center">
+            <Grid container rowSpacing={8} columnSpacing={10} justifyContent="center" alignItems="center">
                 {characters.map((character)=>{   
                     return(
                         <Grid item key={character.id}>

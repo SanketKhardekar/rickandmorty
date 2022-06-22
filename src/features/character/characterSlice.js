@@ -1,23 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 const defaultUrl="https://rickandmortyapi.com/api/character/";
 const initialState={
     isLoading:false,
     characters:[],
-    isError:false,
+    error:"",
 }
 
 export const getCharacters= createAsyncThunk("character/getCharacters",async(filter="")=>{
-    try {
-         const response= await fetch(defaultUrl+filter);
-         if(!response.ok)
-         {
-             throw Error("Something Went Wrong")
-         }
-         const resData= await response.json();
-         return resData.results;    
-    } catch (error) {
-        return error.message
-    }
+         const response= await axios.get(defaultUrl+filter);
+         return response.data.results;    
 })
 
 const characterSlice=createSlice({
@@ -30,12 +22,12 @@ const characterSlice=createSlice({
         builder.addCase(getCharacters.fulfilled,(state,action)=>{
             state.isLoading=false;
             state.characters=action.payload;
-            state.isError=false;
+            state.error="";
         })
         builder.addCase(getCharacters.rejected,(state,action)=>{
             state.isLoading=false;
             state.characters=[];
-            state.isError=true;
+            state.error=action.error.code === "ERR_BAD_REQUEST" ? "Data Not Found" : "Sorry, Something Went Wrong!";
         })
     }
 });

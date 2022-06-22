@@ -34,19 +34,19 @@ const FiltersComponent = (props) => {
   }
   return (
     <Paper
-      elevation={5}
+      elevation={20}
       sx={{
         backgroundColor: "#282c34",
-        padding: "15px",
+        margin:"30px",
+        padding: "25px",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
         color: "whitesmoke",
-        marginBottom: "50px",
       }}
     >
-      Filters
+      <h1>Filters</h1>
       <TextField
         id="name"
         style={{ backgroundColor: "#D6D5A8" }}
@@ -89,7 +89,7 @@ const FiltersComponent = (props) => {
         variant="filled"
         value={filterFields.type}
         onChange={(e) => {
-          setFilterFields({ ...filterFields, species: e.target.type });
+          setFilterFields({ ...filterFields, type: e.target.value });
         }}
       />
         <FormControl sx={{width:"10%"}}>
