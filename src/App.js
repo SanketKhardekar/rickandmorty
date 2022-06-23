@@ -1,4 +1,4 @@
-import { Badge, Box, Tab, Tabs } from "@mui/material";
+import { Badge, Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import ScrollToTop from "react-scroll-to-top";
@@ -17,7 +17,8 @@ function App() {
   const favLength=useSelector(state => state.favroite.favorites).length;
   return (
     <div className="App">
-      <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider", display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
+      <Typography sx={{color:"whitesmoke",marginLeft:"20px"}} align="center" variant="h3" component="div" >Rick & Morty</Typography> 
         <Tabs
           textColor="inherit"
           indicatorColor="secondary"
