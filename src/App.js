@@ -1,4 +1,4 @@
-import { Badge, Box, Tab, Tabs, Typography } from "@mui/material";
+import { Badge, Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import ScrollToTop from "react-scroll-to-top";
@@ -9,34 +9,54 @@ import CharacterScreen from "./screens/CharacterScreen";
 import FavoritesScreen from "./screens/FavroitesScreen";
 function App() {
   const [tabValue, setTabValue] = useState(0);
-  const [filterText,setFilterText]=useState("");
+  const [filterText, setFilterText] = useState("");
   const onFilterChangeHandler = (text) => {
     setFilterText(text);
   };
 
-  const favLength=useSelector(state => state.favroite.favorites).length;
+  const favLength = useSelector((state) => state.favroite.favorites).length;
   return (
     <div className="App">
-      <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider", display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-      <Typography sx={{color:"whitesmoke",marginLeft:"20px"}} align="center" variant="h3" component="div" >Rick & Morty</Typography> 
-        <Tabs
-          textColor="inherit"
-          indicatorColor="secondary"
-          value={tabValue}
-          onChange={(e, val) => {
-            setTabValue(val); 
-          }}
-          centered
-        >
-          <Tab sx={{ color: "white" }} label={<h1>Characters</h1>} />
-            <Tab sx={{ color: "white" }} label={<Badge color="secondary" badgeContent={favLength} max={5}><h1>Favorites</h1></Badge> } />
-        </Tabs>
+      <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}>
+        <Grid container justifyContent="space-evenly" alignItems="center">
+          <Grid item xs={12} sm={12} md={8} lg={6}>
+            <Typography
+              sx={{ color: "whitesmoke", marginLeft: "20px" }}
+              align="center"
+              variant="h3"
+              component="div"
+            >
+              Rick & Morty
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={8} lg={6}>
+            <Tabs
+              textColor="inherit"
+              indicatorColor="secondary"
+              value={tabValue}
+              onChange={(e, val) => {
+                setTabValue(val);
+              }}
+              centered
+            >
+              <Tab sx={{ color: "white" }} label={<h3>Characters</h3>} />
+              <Tab
+                sx={{ color: "white" }}
+                label={
+                  <Badge color="secondary" badgeContent={favLength} max={5}>
+                    <h3>Favorites</h3>
+                  </Badge>
+                }
+              />
+            </Tabs>
+          </Grid>
+        </Grid>
       </Box>
-      {tabValue === 0 && <FiltersComponent onFilter={onFilterChangeHandler} /> }
+      {tabValue === 0 && <FiltersComponent onFilter={onFilterChangeHandler} />}
       <header className="App-header">
-        <ScrollToTop smooth color="green"/>
+        <ScrollToTop smooth color="green" />
         <TabPanel value={tabValue} index={0}>
-          <CharacterScreen filterText={filterText}/>
+          <CharacterScreen filterText={filterText} />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           <FavoritesScreen />
