@@ -18,7 +18,7 @@ const  CharacterList=(props)=>{
             <Grid container rowSpacing={8} columnSpacing={10} justifyContent="center" alignItems="center">
                 {characters.map((character)=>{   
                     return(
-                        <Grid item key={character.id}>
+                        <Grid item key={character.id} xs={12} sm={6} md={4} lg={3}>
                             <CharacterItem characterData={character} />
                         </Grid>
                     )
