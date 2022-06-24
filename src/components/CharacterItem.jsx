@@ -37,7 +37,7 @@ const CharacterItem = (props) => {
     dispatch(action);
     setFav(!fav);
   };
-  const origin = props.characterData.origin.name;
+  const origin = props.characterData.origin.name.replace(/\(.*\)/,"")
   return (
     <Card
       className={classes.item}
@@ -45,6 +45,7 @@ const CharacterItem = (props) => {
       sx={{ backgroundColor: "black", color:"white", maxWidth: 370, borderRadius: 5 }}
     >
       <CardHeader
+        titleTypographyProps={{fontSize:"90%"}}
         sx={{ textTransform: "capitalize"}}
         title={props.characterData.name}
         subheader={"From " + origin}
@@ -60,8 +61,8 @@ const CharacterItem = (props) => {
       />
       <CardMedia
         component="img"
-        height="300"
-        sx={{ marginLeft: "20px", width: "330px", borderRadius: "230px" }}
+        height="100%"
+        sx={{ marginLeft: "10%", width: "80%", borderRadius: "230px" }}
         image={props.characterData.image}
         alt={props.characterData.name}
       />
