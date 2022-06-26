@@ -9,11 +9,6 @@ import CharacterScreen from "./screens/CharacterScreen";
 import FavoritesScreen from "./screens/FavroitesScreen";
 function App() {
   const [tabValue, setTabValue] = useState(0);
-  const [filterText, setFilterText] = useState("");
-  const onFilterChangeHandler = (text) => {
-    setFilterText(text);
-  };
-
   const favLength = useSelector((state) => state.favroite.favorites).length;
   return (
     <div className="App">
@@ -52,11 +47,11 @@ function App() {
           </Grid>
         </Grid>
       </Box>
-      {tabValue === 0 && <FiltersComponent onFilter={onFilterChangeHandler} />}
+      {tabValue === 0 && <FiltersComponent />}
       <header className="App-header">
         <ScrollToTop smooth color="green" />
         <TabPanel value={tabValue} index={0}>
-          <CharacterScreen filterText={filterText} />
+          <CharacterScreen />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           <FavoritesScreen />
