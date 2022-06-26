@@ -10,9 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { addFilter, clearFilter,getCharacters } from "../features/character/characterSlice";
 const FiltersComponent = (props) => {
-  const { onFilter } = props;
+  const dispatch=useDispatch();
   const [filterFields, setFilterFields] = useState({
     name: "",
     status: "",
@@ -21,23 +22,20 @@ const FiltersComponent = (props) => {
     gender: "",
   });
   const onApplyHandler = () => {
-    let textArray = [];
-    for (const key in filterFields) {
-      if (filterFields[key].trim().length > 0) {
-        textArray.push(key + "=" + filterFields[key]);
-      }
-    }
-    onFilter("?" + textArray.join("&"));
+    dispatch(addFilter(filterFields));
+    dispatch(getCharacters());
   };
   const onClickReset = () => {
     setFilterFields({
+      page:1,
       name: "",
       status: "",
       species: "",
       type: "",
       gender: "",
     });
-    onFilter("");
+    dispatch(clearFilter());
+    dispatch(getCharacters());
   };
   return (
     <Paper
