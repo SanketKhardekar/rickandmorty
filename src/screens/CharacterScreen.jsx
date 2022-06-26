@@ -2,40 +2,27 @@ import { Fragment, useEffect, useState } from "react";
 import { Grid, CircularProgress, Pagination } from "@mui/material";
 import CharacterList from "../components/CharacterList";
 import { useSelector, useDispatch } from "react-redux";
-import { getCharacters } from "../features/character/characterSlice";
+import { getCharacters,addFilter } from "../features/character/characterSlice";
 const CharacterScreen = (props) => {
-  const [page,setPage]=useState(0);
+  const [page,setPage]=useState(1);
   const dispatch = useDispatch();
-  const { filterText } = props;
-  useEffect(() => {
-    let text=filterText;
-    let pageNumber=page;
-    if(page > 0)
-    {
-      if(text.trim().length <= 0)
-      {
-        text+=`?page=${pageNumber}`;
-      }
-      else 
-      {
-        text+=`&page=${pageNumber}`;
-        setPage(0);
-      }
-    }
-    if (text.trim().length > 0) {
-      dispatch(getCharacters(text));
-    } else {
-      dispatch(getCharacters());
-    }
-  }, [dispatch, filterText,page]);
-  const { characters, isLoading, totalPages } = useSelector(
+  const { characters, isLoading, totalPages, error } = useSelector(
     (state) => state.character
   );
+  useEffect(() => {
+      if(characters.length === 0 && error=== null)
+      dispatch(getCharacters());
+  }, [dispatch,characters,error]);
+  const onPageChangeHandler=(e,index)=>{
+    setPage(index);
+    dispatch(addFilter({page:index}))
+    dispatch(getCharacters());
+  }
   return (
     <Fragment>
       {isLoading ? (
         <Grid container spacing={5} justifyContent="center" alignItems="center">
-          <CircularProgress color="secondary" />
+          <CircularProgress size="large" color="secondary" />
         </Grid>
       ) : (
         <Fragment>
@@ -55,7 +42,7 @@ const CharacterScreen = (props) => {
                 color="primary"
                 page={page}
                 count={totalPages}
-                onChange={(e,index)=>{ setPage(index)}}
+                onChange={onPageChangeHandler}
                 size="large"
                 sx={{
                   color:"white"
