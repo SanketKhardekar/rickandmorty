@@ -15,6 +15,7 @@ import {
   addFav,
   removeFav,
 } from "../features/favoriteCharacter/favoriteCharacterSlice";
+import { addFavLocal, removeFavLocal } from "../services/services";
 const CharacterItem = (props) => {
   const dispatch = useDispatch();
   const favArray = useSelector((state) => state.favroite.favorites);
@@ -31,8 +32,10 @@ const CharacterItem = (props) => {
     let action;
     if (!fav) {
       action = addFav(props.characterData);
+      addFavLocal(props.characterData);
     } else {
       action = removeFav(props.characterData.id);
+      removeFavLocal(props.characterData.id);
     }
     dispatch(action);
     setFav(!fav);

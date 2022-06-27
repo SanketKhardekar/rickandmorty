@@ -13,12 +13,11 @@ const CharacterList = (props) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item xs={12} sm={10} md={8} lg={8}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
             <Typography
               sx={{ color: "whitesmoke" }}
               align="center"
-              variant="h5"
-              component="div"
+              variant="h3"
             >
               Characters Not Found!
             </Typography>

@@ -1,16 +1,23 @@
 import { Badge, Box, Grid, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ScrollToTop from "react-scroll-to-top";
 import "./App.css";
 import FiltersComponent from "./components/Filters";
 import TabPanel from "./components/TabPanel";
 import CharacterScreen from "./screens/CharacterScreen";
 import FavoritesScreen from "./screens/FavroitesScreen";
+import { fetchLocalFavroites } from "./services/services";
+import { setFav } from "./features/favoriteCharacter/favoriteCharacterSlice";
 function App() {
+  const dispatch=useDispatch();
   const [tabValue, setTabValue] = useState(0);
   const favLength = useSelector((state) => state.favroite.favorites).length;
-  return (
+  useEffect(()=>{
+    const favArray=fetchLocalFavroites();
+    dispatch(setFav(favArray));
+  },[dispatch])
+   return (
     <div className="App">
       <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}>
         <Grid container justifyContent="space-evenly" alignItems="center">

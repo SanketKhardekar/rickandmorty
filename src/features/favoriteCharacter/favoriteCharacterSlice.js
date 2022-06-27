@@ -8,6 +8,9 @@ const favoriteCharacterSlice=createSlice({
     name:"favoriteCharacter",
     initialState,
     reducers:{
+        setFav:(state,action)=>{
+            state.favorites=action.payload;
+        },
         addFav: (state,action)=>{
             state.favorites.unshift(action.payload)
         },
@@ -17,5 +20,5 @@ const favoriteCharacterSlice=createSlice({
     }
 });
 
-export const {addFav,removeFav}=favoriteCharacterSlice.actions;
+export const {addFav,removeFav,setFav}=favoriteCharacterSlice.actions;
 export default favoriteCharacterSlice.reducer
