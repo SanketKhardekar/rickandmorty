@@ -1,21 +1,9 @@
-
-export const fetchLocalFavroites=()=>{
-    const favrouites= localStorage.getItem('favs');
-    if(favrouites === null)
+export const fetchLocalAuth=()=>{
+    const userData=localStorage.getItem("userData");
+    if(userData ===null)
     {
-        return [];
+        return {isLoggedIn:false, token:null,id:null};
     }
-    return(JSON.parse(favrouites));
-}
-
-export const addFavLocal=(data)=>{
-    const favArray=fetchLocalFavroites();
-    favArray.push(data);
-    localStorage.setItem("favs",JSON.stringify(favArray));
-}
-
-export const removeFavLocal=(id)=>{
-    const favArray=fetchLocalFavroites();
-    const updatedData= favArray.filter(item => item.id !== id);
-    localStorage.setItem("favs",JSON.stringify(updatedData));
+    const data=JSON.parse(userData);
+    return {...data,isLoggedIn:true}
 }
