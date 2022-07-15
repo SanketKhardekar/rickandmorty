@@ -35,7 +35,7 @@ const characterSlice=createSlice({
         clearFilter:(state)=>{
             state.filter={
                 page:1,
-                name:"",
+                name:"",    
                 status: "",
                 species: "",
                 type: "",
