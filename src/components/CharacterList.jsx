@@ -15,7 +15,7 @@ const CharacterList = (props) => {
         >
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Typography
-              sx={{ color: "whitesmoke" }}
+              color="red"
               align="center"
               variant="h3"
             >

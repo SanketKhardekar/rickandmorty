@@ -8,48 +8,61 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./CharacterItem.module.css";
 import {
-  addFav,
-  removeFav,
+  addFavourite,
+  deleteFavourite,
 } from "../features/favoriteCharacter/favoriteCharacterSlice";
-import { addFavLocal, removeFavLocal } from "../services/services";
 const CharacterItem = (props) => {
   const dispatch = useDispatch();
   const favArray = useSelector((state) => state.favroite.favorites);
-  const favIndex = favArray.findIndex(
-    (item) => item.id === props.characterData.id
-  );
-  let isFav = true;
-  if (favIndex === -1) {
-    isFav = false;
-  }
-  const [fav, setFav] = useState(isFav);
-
+  const [fav, setFav] = useState(false);
+  useEffect(()=>{
+    const favIndex = favArray.findIndex(
+      (item) => item.id === props.characterData.id
+    );
+    if (favIndex > -1) {
+      setFav(true);
+    }
+  },[favArray,props.characterData.id])
   const onFavClickHandler = () => {
     let action;
     if (!fav) {
-      action = addFav(props.characterData);
-      addFavLocal(props.characterData);
+      action = addFavourite({
+        id: props.characterData.id,
+        name: props.characterData.name,
+        origin: props.characterData.origin.name,
+        image: props.characterData.image,
+        status: props.characterData.status,
+        species: props.characterData.species,
+        gender: props.characterData.gender,
+        location: props.characterData.location.name,
+      });
     } else {
-      action = removeFav(props.characterData.id);
-      removeFavLocal(props.characterData.id);
+      action = deleteFavourite(props.characterData.id);
     }
     dispatch(action);
     setFav(!fav);
   };
-  const origin = props.characterData.origin.name.replace(/\(.*\)/,"")
+  const origin = props.characterData.origin.name
+    ? props.characterData.origin.name.replace(/\(.*\)/, "")
+    : props.characterData.origin.replace(/\(.*\)/, "");
   return (
     <Card
       className={classes.item}
       elevation={20}
-      sx={{ backgroundColor: "black", color:"white", maxWidth: 370, borderRadius: 5 }}
+      sx={{
+        backgroundColor: "black",
+        color: "white",
+        maxWidth: 370,
+        borderRadius: 5,
+      }}
     >
       <CardHeader
-        titleTypographyProps={{fontSize:"90%"}}
-        sx={{ textTransform: "capitalize"}}
+        titleTypographyProps={{ fontSize: "90%" }}
+        sx={{ textTransform: "capitalize" }}
         title={props.characterData.name}
         subheader={"From " + origin}
         action={
@@ -73,7 +86,11 @@ const CharacterItem = (props) => {
         <Typography variant="body2">
           Status: {props.characterData.status}, Species:{" "}
           {props.characterData.species}, Gender: {props.characterData.gender},
-          Location: {props.characterData.location.name}.
+          Location:{" "}
+          {props.characterData.location.name
+            ? props.characterData.location.name
+            : props.characterData.location}
+          .
         </Typography>
       </CardContent>
       <CardActions
