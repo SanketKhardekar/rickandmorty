@@ -1,13 +1,14 @@
-import { Fragment, Suspense, useEffect } from "react";
-import Dashboard from "./Dashboard";
+import { Fragment, Suspense, useEffect ,lazy } from "react";
+
 import { CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Navigate,Route } from "react-router-dom";
 import { fetchLocalAuth } from "./services/services";
-import LoginScreen from "./screens/LoginScreen";
-import RegistrationScreen from "./screens/RegistrationScreen";
 import { setLogin } from "./features/auth/authSlice";
-import Protected from "./screens/Protected";
+const Protected= lazy(()=>import("./screens/Protected"));
+const LoginScreen =lazy(() => import("./screens/LoginScreen"));
+const Dashboard =lazy(() => import("./Dashboard"));
+const RegistrationScreen =lazy(() => import("./screens/RegistrationScreen"));
 function App() {
   const dispatch=useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);

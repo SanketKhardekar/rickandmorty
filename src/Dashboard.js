@@ -1,4 +1,4 @@
-import { Badge, Box, Grid, IconButton, Tab, Tabs, Typography } from "@mui/material";
+import { Badge, Box, CircularProgress, Grid, IconButton, Tab, Tabs, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -14,12 +14,27 @@ function Dashboard() {
   const dispatch=useDispatch();
   const [tabValue, setTabValue] = useState(0);
   const favLength = useSelector((state) => state.favroite.favorites).length;
-  
+  const [isLoading, setIsLoading]=useState(true);
   useEffect(()=>{
     dispatch(fetchFavourites());
+    setTimeout(()=>{
+      setIsLoading(false);
+    },1000)
   },[dispatch])
   const onLogoutClickHandler=()=>{
     dispatch(logout());
+  }
+  if(isLoading)
+  {
+    return (
+      <div className="App">
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item>
+            <CircularProgress size={50} color="primary" />
+          </Grid>
+        </Grid>
+      </div>
+    );
   }
    return (
     <div className="App">
