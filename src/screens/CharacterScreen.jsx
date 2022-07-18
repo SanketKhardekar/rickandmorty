@@ -6,9 +6,12 @@ import { getCharacters,addFilter } from "../features/character/characterSlice";
 const CharacterScreen = (props) => {
   const [page,setPage]=useState(1);
   const dispatch = useDispatch();
-  const { characters, isLoading, totalPages, error } = useSelector(
+  const { characters, isLoading, totalPages, error,filter } = useSelector(
     (state) => state.character
   );
+  useEffect(()=>{
+    setPage(filter.page);
+  },[filter])
   useEffect(() => {
       if(characters.length === 0 && error=== null)
       dispatch(getCharacters());
