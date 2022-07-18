@@ -16,8 +16,7 @@ export const regsiterUser= createAsyncThunk('user/regsiterUser',async(userData )
 export const loginUser= createAsyncThunk('user/loginUser',async(loginData)=>{
     try{
         const response= await axios.post(`${defaultUrl}login`,{...loginData});
-        
-        return {token:response.data.payload.token,id:response.data.payload.id}
+        return {token:response.data.payload.accessToken,id:response.data.payload.id}
     }
     catch(error)
     {

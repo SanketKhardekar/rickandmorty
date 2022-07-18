@@ -21,7 +21,7 @@ export const deleteFavourite= createAsyncThunk('favourite/deleteCharacter',async
     const token=state.auth.token;
     const favs= state.favroite.favorites;
     const item=favs.find(element => { return element.id === id} );
-    const response= await axios.delete(`${defaultUrl}delete`,{ params:{favId:item._id}, headers:{"Authorization": `Bearer ${token}`} });
+    await axios.delete(`${defaultUrl}delete`,{ params:{favId:item._id}, headers:{"Authorization": `Bearer ${token}`} });
     return { id }
 })
 
