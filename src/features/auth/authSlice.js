@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const defaultUrl="http://localhost:5000/api/user/";
+const defaultUrl="https://rickandmortybackendsanket.herokuapp.com/api/user/";
 const initialState={
     isLoggedIn:true,
     token:null,

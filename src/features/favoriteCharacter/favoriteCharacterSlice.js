@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const defaultUrl="http://localhost:5000/api/favourite/";
+const defaultUrl="https://rickandmortybackendsanket.herokuapp.com/api/favourite/";
 const initialState={
     favorites:[],
 }
